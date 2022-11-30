@@ -5,9 +5,34 @@ import argparse
 #Write you own function that moves the dron from one place to another 
 #the function returns the drone's current location while moving
 #====================================================================================================
-def your_function():
-    longitude = 13.21008
-    latitude = 55.71106
+def your_function_from(current_coords,from_coords):
+    longitude = current_coords[0]
+    latitude = current_coords[1]
+    # path to from_cords
+    diff_long = longitude - from_coords[0]
+    diff_lat = latitude - from_coords[1]
+
+    movment_long = diff_long/10
+    movment_lat = diff_lat/10
+
+    longitude = longitude + movment_long
+    latitude = latitude + movment_lat
+
+    return (longitude, latitude)
+
+def your_function_to(current_coords,to_coords):
+    longitude = current_coords[0]
+    latitude = current_coords[1]
+    # path to from_cords
+    diff_long = longitude - to_coords[0]
+    diff_lat = latitude - to_coords[1]
+ 
+    movment_long = diff_long/10
+    movment_lat = diff_lat/10
+
+    longitude = longitude + movment_long
+    latitude = latitude + movment_lat
+
     return (longitude, latitude)
 #====================================================================================================
 
@@ -18,8 +43,19 @@ def run(current_coords, from_coords, to_coords, SERVER_URL):
     # 2. Plan a path with your own function, so that the drone moves from [current_address] to [from_address], and the from [from_address] to [to_address]. 
     # 3. While moving, the drone keeps sending it's location to the database.
     #====================================================================================================
-    while True:
-        drone_coords = your_function()
+    while (abs(current_coords[0]-from_coords[1])>0.0001 and abs(current_coords[1]-from_coords[1])>0.0001):
+        drone_coords = your_function_from(current_coords,from_coords)
+        current_coords = drone_coords
+        with requests.Session() as session:
+            drone_location = {'longitude': drone_coords[0],
+                              'latitude': drone_coords[1]
+                        }
+            resp = session.post(SERVER_URL, json=drone_location)
+
+    while (abs(current_coords[0]-to_coords[1])>0.0001 and abs(current_coords[1]-to_coords[1])>0.0001):
+        drone_coords = your_function_to(current_coords,to_coords)
+        current_coords = drone_coords
+
         with requests.Session() as session:
             drone_location = {'longitude': drone_coords[0],
                               'latitude': drone_coords[1]
