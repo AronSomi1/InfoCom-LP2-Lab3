@@ -8,11 +8,12 @@ app.secret_key = 'dljsaklqk24e21cjn!Ew@@dsa5'
 
 # change this to connect to your redis server
 # ===============================================
-redis_server = redis.Redis(host ='127.0.0.1', port ='6379')
+redis_server = redis.Redis(host ='localhost', port ='7777')
 # ===============================================
 
 redis_server.set('longitude', 13.21008)
 redis_server.set('latitude', 55.71106)
+
 
 @app.route('/drone', methods=['POST'])
 def drone():
@@ -24,4 +25,4 @@ def drone():
     return 'Get data'
 
 if __name__ == "__main__":
-    app.run(debug=True, host ='127.0.0.1', port ='5001')
+    app.run(debug=True, host ='0.0.0.0', port ='5001')

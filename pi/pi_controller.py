@@ -2,66 +2,70 @@ import math
 import requests
 import argparse
 
-#Write you own function that moves the dron from one place to another 
-#the function returns the drone's current location while moving
-#====================================================================================================
-def your_function_from(current_coords,from_coords):
-    longitude = current_coords[0]
-    latitude = current_coords[1]
-    # path to from_cords
-    diff_long = longitude - from_coords[0]
-    diff_lat = latitude - from_coords[1]
+def travel(start,stop): # räknar ut förflyttningar
+    x1 = start[0]
+    y1 = start[1]
+    x2 = stop[0]
+    y2 = stop[1]
 
-    movment_long = diff_long/10
-    movment_lat = diff_lat/10
-
-    longitude = longitude + movment_long
-    latitude = latitude + movment_lat
-
-    return (longitude, latitude)
-
-def your_function_to(current_coords,to_coords):
-    longitude = current_coords[0]
-    latitude = current_coords[1]
-    # path to from_cords
-    diff_long = longitude - to_coords[0]
-    diff_lat = latitude - to_coords[1]
- 
-    movment_long = diff_long/10
-    movment_lat = diff_lat/10
-
-    longitude = longitude + movment_long
-    latitude = latitude + movment_lat
-
-    return (longitude, latitude)
-#====================================================================================================
+    dx = abs(x1-x2)
+    dy = abs(y1-y2)
+    d = math.sqrt(dx*dx + dy*dy)
+    steps = d/0.0001
+    dxR = x1-x2
+    dyR = y1 -y2
+    steps = int(steps)
+    print(steps)
+    for i in range(steps):
+        setpos(x1 + i*(dxR/steps), y1 + i*(dyR/steps))
 
 
-def run(current_coords, from_coords, to_coords, SERVER_URL):
-    # Compmelete the while loop:
-    # 1. Change the loop condition so that it stops sending location to the data base when the drone arrives the to_address
-    # 2. Plan a path with your own function, so that the drone moves from [current_address] to [from_address], and the from [from_address] to [to_address]. 
-    # 3. While moving, the drone keeps sending it's location to the database.
-    #====================================================================================================
-    while (abs(current_coords[0]-from_coords[1])>0.0001 and abs(current_coords[1]-from_coords[1])>0.0001):
-        drone_coords = your_function_from(current_coords,from_coords)
-        current_coords = drone_coords
-        with requests.Session() as session:
-            drone_location = {'longitude': drone_coords[0],
-                              'latitude': drone_coords[1]
+
+def setpos(x,y): # ändrar positionen 
+    print("setpos", x, y)
+    SERVER_URL = "http://127.0.0.1:5001/drone"
+
+    with requests.Session() as session:
+            drone_location = {'longitude': x,
+                              'latitude': y
                         }
             resp = session.post(SERVER_URL, json=drone_location)
 
-    while (abs(current_coords[0]-to_coords[1])>0.0001 and abs(current_coords[1]-to_coords[1])>0.0001):
-        drone_coords = your_function_to(current_coords,to_coords)
-        current_coords = drone_coords
 
-        with requests.Session() as session:
-            drone_location = {'longitude': drone_coords[0],
-                              'latitude': drone_coords[1]
-                        }
-            resp = session.post(SERVER_URL, json=drone_location)
-  #====================================================================================================
+def route_planned(current_coords,destination, arrived):
+
+    list_current_coords = list(current_coords)
+    list_destination = list(destination)
+
+    if abs(list_current_coords[0]-list_destination[0]) > abs(list_current_coords[1]-list_destination[1]):
+        #ta ett steg i longitude riktning
+        print("Steg i long riktning")
+        if list_current_coords[0]-list_destination[0] >= 0:
+            list_current_coords[0] = list_current_coords[0] - distance_per_hop()
+            print("Steg i long riktning -")
+        else: 
+            list_current_coords[0] = list_current_coords[0] + distance_per_hop()
+            print("Steg i long riktning +")
+
+    else: #ta ett steg i lat led
+        print("Ta ett steg i lat riktning")
+        if list_current_coords[1]-list_destination[1] > 0:
+            list_current_coords[1] = list_current_coords[1] - distance_per_hop()
+            print("Steg i lat riktning -")
+        else:
+            list_current_coords[1] = list_current_coords[1] - distance_per_hop()
+            print("Steg i lat riktning +")
+    
+    if abs(list_current_coords[0]-list_destination[0]) <= distance_per_hop() and abs(list_current_coords[1]-list_destination[1]) <= distance_per_hop() :
+        print("Vi är framme")
+        arrived = True
+
+    current_coords = tuple(list_current_coords)
+    print("Nuvarande koordinater", current_coords)
+    print(arrived)
+
+    return(current_coords,arrived)
+
 
    
 if __name__ == "__main__":
@@ -80,8 +84,5 @@ if __name__ == "__main__":
     from_coords = (args.flong, args.flat)
     to_coords = (args.tlong, args.tlat)
 
-    print(current_coords)
-    print(from_coords)
-    print(to_coords)
-
-    run(current_coords, from_coords, to_coords, SERVER_URL)
+    travel(current_coords, from_coords)
+    travel(from_coords, to_coords)

@@ -8,7 +8,7 @@ import subprocess
 
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
-redis_server = redis.Redis(host ='127.0.0.1', port ='6379')
+redis_server = redis.Redis(host ='localhost', port ='7777')
 
 geolocator = Nominatim(user_agent="my_request")
 region = ", Lund, Skåne, Sweden"
@@ -36,4 +36,4 @@ def route_planner():
     return message
 
 if __name__ == "__main__":
-    app.run(debug=True,host ='127.0.0.1', port ='5002')
+    app.run(debug=True,host ='0.0.0.0', port ='5002')
