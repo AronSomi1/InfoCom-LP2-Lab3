@@ -20,8 +20,8 @@ def translate(coords_osm):
     x_osm_lim = (13.143390664, 13.257501336)
     y_osm_lim = (55.678138854000004, 55.734680845999996)
 
-    x_svg_lim = (212.155699, 968.644301)
-    y_svg_lim = (103.68, 768.96)
+    x_svg_lim = (0, 473)
+    y_svg_lim = (0, 397)
 
     x_osm = coords_osm[0]
     y_osm = coords_osm[1]
@@ -44,7 +44,7 @@ def get_location():
         latitude = float(redis_server.get('latitude'))
         x_svg, y_svg = translate((longitude, latitude))
         emit('get_location', (x_svg, y_svg))
-        time.sleep(0.01)
+        #time.sleep(0.1)
 
 if __name__ == "__main__":
     app.run(debug=True, host ='0.0.0.0', port ='5000')
