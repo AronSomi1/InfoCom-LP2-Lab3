@@ -6,13 +6,14 @@ import redis
 
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
-app.secret_key = 'dljsaklqk24e21cjn!Ew@@dsa5'
+app.secret_key = "dljsaklqk24e21cjn!Ew@@dsa5"
 socket = SocketIO(app, cors_allowed_origins="*")
 
 # change this so rhat you can connect to your own redis server
 # ===============================================
-redis_server = redis.Redis(host ='localhost', port ='7777')
+redis_server = redis.Redis(host="localhost", port="7777")
 # ===============================================
+
 
 # Translate OSM coordinate (longitude, latitude) to SVG coordinates (x,y).
 # Input coords_osm is a tuple (longitude, latitude).
@@ -33,18 +34,28 @@ def translate(coords_osm):
 
     return x_svg, y_svg
 
-@app.route('/', methods=['GET'])
-def map():
-    return render_template('index.html')
 
-@socket.on('get_location')
+def MinutesAndSeconds(time_data):  # fix this !!
+    input = int(time_data)
+    mm, ss = divmod(input, 60)
+    return mm, ss
+
+
+@app.route("/", methods=["GET"])
+def map():
+    return render_template("index.html")
+
+
+@socket.on("get_location")
 def get_location():
     while True:
-        longitude = float(redis_server.get('longitude'))
-        latitude = float(redis_server.get('latitude'))
+        longitude = float(redis_server.get("longitude"))
+        latitude = float(redis_server.get("latitude"))
+        minutes, seconds = MinutesAndSeconds(float(redis_server.get("time_left")))
         x_svg, y_svg = translate((longitude, latitude))
-        emit('get_location', (x_svg, y_svg))
-        #time.sleep(0.1)
+        emit("get_location", (x_svg, y_svg, minutes, seconds))
+        time.sleep(0.1)
+
 
 if __name__ == "__main__":
-    app.run(debug=True, host ='0.0.0.0', port ='5000')
+    app.run(debug=True, host="0.0.0.0", port="5000")
