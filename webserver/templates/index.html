@@ -18,9 +18,7 @@
 </head>
 
 <body>
-  <p>Current Position: </p>
-  <div id="txt"></div>
-  <div id="timer">10</div>
+  <div id="timer"></div>
   <form action="javascript:Submit()">
     <label for="fname">From address:</label><br>
     <input type="text" id="faddr" name="faddr"><br>
@@ -41,9 +39,10 @@
       document.getElementById("timer").innerHTML = 'TimeLeft: ' + minutes + ':' + seconds // this is the timer
       circle_x = x_data;
       circle_y = y_data;
-      var doc = document.getElementById('map').getSVGDocument();
-      var svg = doc.getElementById("map-svg");
-      var drone = svg.getElementById('myDrone');
+      var doc = document.getElementById('map').getSVGDocument(); //Hämtar Objektet med ID map och dess SVGDocument
+      var svg = doc.getElementById("map-svg");    //Hämtar SVG elementet med ID map-svg
+      var drone = svg.getElementById('myDrone');  //Hämtar cirkeln med ID myDrone
+      console.log(drone)
       if (drone != null) {
         drone.setAttributeNS(null, 'cx', circle_x);
         drone.setAttributeNS(null, 'cy', circle_y);

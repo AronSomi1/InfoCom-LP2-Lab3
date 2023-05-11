@@ -1,4 +1,4 @@
-const startingMinutes = 10;
+/* const startingMinutes = 10;
 let time = startingMinutes * 60;
 
 const countDownEl = document.getElementById('timer');
@@ -15,7 +15,7 @@ function updateTimer() {
 
   countDownEl.innerHTML = `${min}:${second}`;
   time--;
-}
+} */
 
 function Submit() {
   var from_addr = document.getElementById('faddr').value;
