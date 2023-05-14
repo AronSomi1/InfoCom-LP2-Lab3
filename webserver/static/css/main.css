@@ -1,0 +1,347 @@
+ * {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+ }
+
+ /*header {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+*/
+ html {
+   scroll-behavior: smooth;
+   ;
+ }
+
+ body {
+   min-height: 100vh;
+   width: 100%;
+   background-image: linear-gradient(rgba(72, 55, 38, 0.206), rgba(44, 26, 8, 0.609)), url(../images/skyline.png);
+   background-position: center;
+   background-size: cover;
+   position: relative;
+ }
+
+ .h1 {
+   text-align: right;
+
+   font-weight: bolder;
+   color: white;
+
+ }
+
+ .h6 {
+   text-align: center;
+   color: #fff;
+ }
+
+ .parent {
+   display: inline-block;
+   height: 800px;
+   background: rgba(128, 128, 128, 0);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+ }
+
+ .child {
+   display: inline-block;
+   background-color: rgba(255, 255, 255, 0);
+   color: #ffffffe0;
+   text-size-adjust: 40px;
+   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+   width: 400px;
+   height: 100px;
+ }
+
+ .input {
+   display: inline-block;
+   background-color: rgba(255, 255, 255, 0);
+   width: 400px;
+   height: 100px;
+   margin-left: 20px;
+ }
+
+ .styled {
+   display: inline-block;
+   border: 0;
+   line-height: 2.5;
+   padding: 0 20px;
+   font-size: 1rem;
+   text-align: center;
+   color: #fff;
+   text-shadow: 1px 1px 1px #000;
+   border-radius: 10px;
+   background-color: rgba(255, 230, 153, 0.897);
+   background-image: linear-gradient(to top left, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2) 30%, rgba(0, 0, 0, 0));
+   box-shadow: inset 2px 2px 3px rgba(255, 255, 255, 0.6), inset -2px -2px 3px rgba(0, 0, 0, 0.6);
+ }
+
+ .styled:hover {
+   background-color: #e0da3bb0;
+ }
+
+
+ /* .b.ex1 {
+   margin-top: 25px;
+ }
+ 
+ /* Style the header */
+
+ .logo {
+   display: inline-block;
+   vertical-align: top;
+   width: 50px;
+   height: 50px;
+   margin-right: 20px;
+   margin-top: 0%;
+   margin-left: 20px;
+   /* if you want it vertically middle of the navbar. */
+ }
+
+ .navbar ul {
+   margin-top: 50px;
+   list-style: none;
+   background-color: rgba(250, 213, 165, 0);
+   padding: 0;
+   text-align: right;
+ }
+
+ .navbar li {
+   display: inline-block;
+   text-align: center;
+ }
+
+ .navbar a {
+   text-decoration: none;
+   color: #ffffffe0;
+   width: 200px;
+   display: block;
+   padding: 25px 20px;
+   font-weight: bold;
+   text-transform: uppercase;
+   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+ }
+
+ .navbar li::after {
+   content: '';
+   width: 0%;
+   height: 2px;
+   background: #fdffb5a8;
+   display: block;
+   margin: auto;
+   transition: 0.5ms;
+ }
+
+ .navbar li:hover::after {
+   width: 80%;
+ }
+
+
+
+
+ /* Style the footer */
+ footer {}
+
+ .text {
+   display: inline-block;
+   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+   padding: 10px;
+   margin-left: 10px;
+
+   color: #ffffffe0;
+ }
+
+
+ .rate {
+   display: inline-block;
+   height: 30px;
+   color: #ffffff74;
+   padding: 0 10px;
+ }
+
+ .rate:not(:checked)>input {
+   position: absolute;
+
+   clip: rect(0, 0, 0, 0);
+
+ }
+
+ .rate:not(:checked)>label {
+   float: right;
+   width: 1em;
+   overflow: hidden;
+   white-space: nowrap;
+   cursor: pointer;
+   font-size: 30px;
+   top: auto;
+
+ }
+
+ .rate:not(:checked)>label:before {
+   content: '★ ';
+ }
+
+ .rate>input:checked~label {
+   color: rgb(255, 229, 153);
+   top: auto;
+ }
+
+ .rate:not(:checked)>label:hover,
+ .rate:not(:checked)>label:hover~label {
+   color: rgb(255, 229, 153);
+   top: auto;
+ }
+
+ .rate>input:checked+label:hover,
+ .rate>input:checked+label:hover~label,
+ .rate>input:checked~label:hover,
+ .rate>input:checked~label:hover~label,
+ .rate>label:hover~input:checked~label {
+   color: rgb(255, 229, 153);
+   top: auto;
+ }
+
+ .btn {
+   display: inline-block;
+   width: 70px;
+   border: 0;
+   line-height: 2.5;
+   font-size: 0.8rem;
+   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+   text-align: center;
+   color: #fff;
+   text-shadow: 1px 1px 1px #000;
+   border-radius: 15px;
+   background-color: rgba(255, 230, 153, 0.45);
+
+
+ }
+
+ .btn:hover {
+   background-color: #fdffb565;
+ }
+
+ .recension {
+   display: inline-block;
+
+   margin-left: 60px;
+   color: #ffffffe0;
+ }
+
+ .kontakt {
+   float: inline-end;
+   margin-top: 15px;
+   padding-right: 15px;
+   color: #ffffffe0;
+ }
+
+ .mail {
+   display: inline-block;
+ }
+
+ .a {
+   color: #fdffb548;
+ }
+
+ /* Responsive layout - makes the menu and the content (inside the section) sit on top of each other instead of next to each other */
+ @media (max-width: 600px) {
+   section {
+     -webkit-flex-direction: column;
+     flex-direction: column;
+   }
+ }
+
+ /*
+ #header-image-menu{
+   top: 30px;
+   position: relative;
+   
+
+}
+
+#header-image-menu img{
+   width: 100%;
+   height: 1050px;
+   margin: none;
+   padding: none;
+   text-align: right;
+   
+}
+nav ul{
+   width: 1440px;
+   height: 100px;
+ }
+#top-header {
+   background-color: rgb(248, 218, 98);
+}
+
+#top-header nav ul li {
+   list-style: none;
+   display: inline-block;
+   position: relative;
+   
+}
+#top-header nav ul li a{
+   color: rgb(249, 104, 32);
+   text-decoration: none;
+   padding: 10px;
+   font-size: 15px;
+}
+#image-text{
+   position: absolute;
+   top: 60%;
+   left: 60%;
+   font-family: 'Roboto';
+   color: #000;
+   transform: translate(-30%, -30%);
+   text-align: center;
+}
+ 
+
+/* .header {
+    min-height: 100vh;
+    width: 100%;
+    background-image: linear-gradient(rgba(136, 94, 54, 0.7), rgba(116, 84, 52, 0.7)), url("images/bild2.jpg");
+    background-position: center;
+    background-size: cover;
+    position: relative;
+ }
+ .header {
+   padding: 30px;
+   text-align: left;
+   background: #f6dc7e; 
+   height: 20vh;
+   width: 100%;
+   color: white;
+   font-size: 30px;
+ }
+ nav{
+   display: block;
+   padding: 3% 3%;
+   justify-content: space-between;
+   align-items: left;
+ }
+ nav img {
+   width: 150px;
+ }
+ .nav-links {
+   flex: 1;
+   text-align: left;
+ }
+ .nav-links ul li{
+   list-style: none;
+   display: inline-block;
+   padding: 8px 12px;
+   position: relative;
+   color: #fff;
+   text-decoration: none;
+   font-size: 18px;
+ }
+ .nav-links ul li{
+   color: #fff;
+   text-decoration: none;
+   font-size: 18px;
+ } */

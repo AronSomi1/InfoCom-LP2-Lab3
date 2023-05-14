@@ -41,9 +41,19 @@ def MinutesAndSeconds(time_data):  # fix this !!
     return mm, ss
 
 
-@app.route("/", methods=["GET"])
-def map():
+@app.route("/")
+def index():
     return render_template("index.html")
+
+
+@app.route("/map.html/", methods=["GET"])
+def map():
+    return render_template("map.html")
+
+
+@app.route("/beställning.html/")
+def beställning():
+    return render_template("beställning.html")
 
 
 @socket.on("get_location")
